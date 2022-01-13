@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-icon name="cart" slot="start"></ion-icon>
+    <ion-title>
+      Liste d'articles
+    </ion-title>
+    <ion-button slot="end" (click)="openModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let article of listArticle">
+      <ion-label>{{article.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

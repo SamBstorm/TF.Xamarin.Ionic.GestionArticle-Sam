@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-title>
+    Nouvel article?
+  </ion-title>
+</ion-header>
+<ion-content>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nom de l'article</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Prix</ion-label>
+      <ion-input formControlName="price" type="number" inputmode="decimal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="desc"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-toolbar>
+        <ion-button slot="start" color="danger" (click)="onCancel()">
+          Annuler
+        </ion-button>
+        <ion-button slot="end" color="success" type="submit">
+          Enregistrer
+        </ion-button>
+      </ion-toolbar>
+    </ion-item>
+  </form>
+</ion-content>

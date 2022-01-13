@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { IonSelect, ModalController, ViewDidEnter, ViewDidLeave, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 import { AddArticleComponent } from 'src/app/components/add-article/add-article.component';
 import { IArticle } from 'src/app/models/iarticle';
 import { ArticleService } from 'src/app/services/article.service';
+import { PanierService } from 'src/app/services/panier.service';
 
 @Component({
   selector: 'app-articles',
@@ -15,6 +16,7 @@ export class ArticlesPage implements OnInit, OnDestroy, ViewWillEnter, ViewDidEn
 
   constructor(
     private articleSrv: ArticleService,
+    private panierSrv: PanierService,
     private modalCtrl : ModalController
   ) {}
 
@@ -24,6 +26,19 @@ export class ArticlesPage implements OnInit, OnDestroy, ViewWillEnter, ViewDidEn
     });
 
     modal.present();
+  }
+
+  public onClick(ionSelect : IonSelect,id: number){
+    this.panierSrv.addArticle(id, ionSelect.value);
+    ionSelect.value=undefined;
+  }
+
+  public addTen(qty: number,id: number){
+    this.panierSrv.addArticle(id, qty);
+  }
+
+  public deleteItem(id:number){
+    this.articleSrv.remove(id);
   }
 
 

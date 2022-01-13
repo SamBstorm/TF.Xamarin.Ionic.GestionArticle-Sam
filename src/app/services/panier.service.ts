@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { IArticle } from '../models/iarticle';
 import { IArticlePanier } from '../models/iarticle-panier';
 import { ArticleService } from './article.service';
@@ -9,6 +10,10 @@ import { ArticleService } from './article.service';
 export class PanierService {
 
   private _panier : IArticlePanier[] = [];
+  private _newItem : number = 0;
+  public newItem : BehaviorSubject<number> = new BehaviorSubject(0);
+  public price: BehaviorSubject<number> = new BehaviorSubject(this.getPrice());
+
   constructor(
     private articleSrv : ArticleService
   ) { }
@@ -36,16 +41,39 @@ export class PanierService {
     else{
       this.addQuantity(id, qty);
     }
+    this._newItem += qty;
+    this.newItem.next(this._newItem);
+    this.price.next(this.getPrice());
   }
 
   public addQuantity(id: number, qty:number){    
     if (qty < 1) throw new Error("Quantité non recevable");
-    this.getById(id).quantity += qty;
+    const index=this._panier.findIndex(a=> a.article.id == id);
+    this._panier[index].quantity += qty;
+    this.price.next(this.getPrice());
   }
 
   public removeQuantity(id: number, qty:number){
     if (qty < 1) throw new Error("Quantité non recevable");
-    this.getById(id).quantity -= qty;
-    if(this.getById(id).quantity <= 0) this.delete(id);
+    const index=this._panier.findIndex(a=> a.article.id == id);
+    this._panier[index].quantity -= qty;
+    if(this._panier[index].quantity <= 0) this.delete(id);
+    this.price.next(this.getPrice());
+  }
+
+  public resetNewItem(){
+    this._newItem = 0;
+    this.newItem.next(this._newItem);
+  }
+
+  public getNewItem(): number{
+    return this._newItem;
+  }
+  public getPrice():number{
+    let price = 0
+    this._panier.forEach(a => {
+      price += (a.article.price * a.quantity)
+    });
+    return price;
   }
 }

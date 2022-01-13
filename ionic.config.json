@@ -1,0 +1,7 @@
+{
+  "name": "GestionArticle-Sam",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

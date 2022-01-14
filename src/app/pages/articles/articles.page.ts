@@ -40,19 +40,7 @@ export class ArticlesPage implements OnInit, OnDestroy, ViewWillEnter, ViewDidEn
   public deleteItem(id:number){
     this.articleSrv.remove(id);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
   /** Cycle de vie de la page */
   ngOnInit(): void {
     console.log('articles est appelé');

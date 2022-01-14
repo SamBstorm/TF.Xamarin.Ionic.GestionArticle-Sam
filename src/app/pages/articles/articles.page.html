@@ -25,8 +25,8 @@
           <ion-icon name="add"></ion-icon>
         </ion-button>
       </ion-item>
-      <ion-item-options side="start">
-        <ion-item-option color="success" (ionSwipe)="addTen(100, article.id)" (click)="addTen(10, article.id)" expandable>Add 10</ion-item-option>
+      <ion-item-options side="start" (ionSwipe)="addTen(100, article.id)">
+        <ion-item-option color="success" (click)="addTen(10, article.id)" expandable>Add 10</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

@@ -29,8 +29,10 @@ export class ArticlesPage implements OnInit, OnDestroy, ViewWillEnter, ViewDidEn
   }
 
   public onClick(ionSelect : IonSelect,id: number){
-    this.panierSrv.addArticle(id, ionSelect.value);
-    ionSelect.value=undefined;
+    if(ionSelect.value){
+      this.panierSrv.addArticle(id, ionSelect.value);
+      ionSelect.value=undefined;
+    }
   }
 
   public addTen(qty: number,id: number){
